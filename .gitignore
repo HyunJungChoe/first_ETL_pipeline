@@ -1,14 +1,12 @@
 
 # folder
-__pycache__/
-myenv/
-.DS_Store/
+/__pycache__/
+/myenv/
+/.DS_Store/
+/.idea/
 
 # files
-.idea/
-
-*.pyc
-secret_key.py
-get_acesstokenX.py
-get_acesstokenXX.py
+/secret_key.py
+/get_acesstokenX.py
+/get_acesstokenXX.py
 
