@@ -5,10 +5,7 @@ myenv/
 .DS_Store/
 
 # files
-.idea/first_DE_pjt.iml
-.idea/misc.xml
-.idea/moudules.xml
-.idea/workspace.xml
+.idea/
 
 *.pyc
 secret_key.py
