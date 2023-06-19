@@ -1,0 +1,8 @@
+
+*.pyc
+__pycache__/
+myenv/
+
+secret_key.py
+get_acesstokenX.py
+get_acesstokenXX.py
