@@ -1,8 +1,17 @@
 
-*.pyc
+# folder
 __pycache__/
 myenv/
+.DS_Store/
 
+# files
+.idea/first_DE_pjt.iml
+.idea/misc.xml
+.idea/moudules.xml
+.idea/workspace.xml
+
+*.pyc
 secret_key.py
 get_acesstokenX.py
 get_acesstokenXX.py
+
