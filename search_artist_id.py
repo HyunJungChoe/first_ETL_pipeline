@@ -19,9 +19,9 @@ def search_artist_id(token):
 
     # 쿼리 매개변수
     params = {
-        "q": artist_name,
-        "type": search_type,
-        "limit": 1
+        "q": artist_name, # 'year:2022
+        "type":  search_type,
+        "limit": 10
     }
 
     # 검색 요청 보내기
@@ -62,12 +62,10 @@ def split_data(json_response):
         artist_id = data['artists']['items'][0]['id']
         artist_name = data['artists']['items'][0]['name']
         popularity = data['artists']['items'][0]['popularity']
-        images = data['artists']['items'][0]['images'][0]['url']
 
         print(f"artist_id: {artist_id}  \n \
             ,artist_name: {artist_name} \n \
-            ,popularity: {popularity}   \n \
-            ,images: {images}")
+            ,popularity: {popularity} ")
 
 
 search_artist_id(token)
@@ -78,4 +76,3 @@ search_artist_id(token)
 # artist_id: 3Nrfpe0tUJi4K4DXYWgMUX 
 #,artist_name: BTS 
 #,popularity: 91   
-#,images: https://i.scdn.co/image/ab6761610000e5eb5704a64f34fe29ff73ab56bb
