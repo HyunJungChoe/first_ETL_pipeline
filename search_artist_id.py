@@ -35,7 +35,7 @@ def search_artist_id(token):
         json_response = response.json()
 
         # pprint.pprint(json_response)  # 받은 json 을 컬럼 별 분리
-        split_data(json_response)
+        return split_data(json_response)
 
                 
     elif response.status_code == 401:   
@@ -61,18 +61,35 @@ def split_data(json_response):
         # 아티스트 테이블에 데이터 적재
         artist_id = data['artists']['items'][0]['id']
         artist_name = data['artists']['items'][0]['name']
+        followers = data['artists']['items'][0]['followers']['total']
+        genres = data['artists']['items'][0]['genres']
         popularity = data['artists']['items'][0]['popularity']
 
         print(f"artist_id: {artist_id}  \n \
             ,artist_name: {artist_name} \n \
+            ,followers: {followers} \n \
+            ,genres: {genres} \n \
             ,popularity: {popularity} ")
+        
+        # 변수들을 딕셔너리로 구성하여 반환
+        return {
+        'artist_id': artist_id,
+        'artist_name': artist_name,
+        'followers': followers,
+        'genres': genres,
+        'popularity': popularity
+        } 
+    
 
+# -- 임시 실행 
+# search_artist_id(token)
 
-search_artist_id(token)
 
 
 
 # ** RETURN 예시 ** 
-# artist_id: 3Nrfpe0tUJi4K4DXYWgMUX 
-#,artist_name: BTS 
-#,popularity: 91   
+# artist_id: 3Nrfpe0tUJi4K4DXYWgMUX  
+# ,artist_name: BTS 
+# ,followers: {'href': None, 'total': 66667198} 
+# ,genres: ['k-pop', 'k-pop boy group', 'pop'] 
+# ,popularity: 90 

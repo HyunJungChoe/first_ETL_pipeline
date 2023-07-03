@@ -6,9 +6,10 @@ from secret_key import *
 # Spotify API 액세스 토큰
 token = get_token(client_id, client_secret)
 
-def artist_album(token):
+# 아티스트 id 전송
+id = '3Nrfpe0tUJi4K4DXYWgMUX'
 
-    id = '3Nrfpe0tUJi4K4DXYWgMUX'
+def artist_album(token, id):   
     
     # Spotify API 검색 엔드포인트
     auth_url = "https://api.spotify.com/v1/artists/{}/albums".format(id)
@@ -48,8 +49,6 @@ def artist_album(token):
 
 # 데이터 보기 쉽게 변환 
 def split_data(json_response):
-        # 검색 결과에서 아티스트의 ID 추출하기
-
         data = json_response
 
         # 모든 앨범 데이터를 저장하기 위한 리스트 생성 
@@ -65,16 +64,6 @@ def split_data(json_response):
             total_tracks.append(i['total_tracks'])
             release_date.append(i['release_date'])
 
-        # album_name = data['items'][0]['name']
-        # album_id  = data['items'][0]['id']
-        # total_tracks  = data['items'][0]['total_tracks']
-        # release_date  = data['items'][0]['release_date']
-        
-        print(f"album_name: {album_names}  \n \
-            ,album_id: {album_id} \n \
-            ,total_tracks: {total_tracks} \n \
-            ,release_date: {release_date}")
-        
         # 앨범 리스트에 데이터 적재
         for i in range(len(album_names)):
             print(f"album_name: {album_names[i]}  \n \
@@ -82,7 +71,17 @@ def split_data(json_response):
             ,total_tracks: {total_tracks[i]} \n \
             ,release_date: {release_date[i]}")
 
-artist_album(token)
+        # album_name = data['items'][0]['name']
+        # album_id  = data['items'][0]['id']
+        # total_tracks  = data['items'][0]['total_tracks']
+        # release_date  = data['items'][0]['release_date']
+        
+        # print(f"album_name: {album_names}  \n \
+        #     ,album_id: {album_id} \n \
+        #     ,total_tracks: {total_tracks} \n \
+        #     ,release_date: {release_date}")
+        
+artist_album(token, id)
 
 
 
