@@ -6,10 +6,10 @@ from secret_key import *
 # Spotify API 액세스 토큰
 token = get_token(client_id, client_secret)
 
-# 아티스트 id 전송
+# 아티스트 id 전송 예시
 id = '3Nrfpe0tUJi4K4DXYWgMUX'
 
-def artist_album(token, id):   
+def get_artist_album(token, id):   
     
     # Spotify API 검색 엔드포인트
     auth_url = "https://api.spotify.com/v1/artists/{}/albums".format(id)
@@ -38,7 +38,7 @@ def artist_album(token, id):
         token = get_token(client_id,client_secret)
         print(f" ** 재발급 완료 **")
 
-        artist_album(token)
+        get_artist_album(token)
 
     elif response.status_code == 429:    
         print(f"{response.status_code} : 앱이 속도 제한을 초과하였습니다.")
@@ -52,38 +52,32 @@ def split_data(json_response):
         data = json_response
 
         # 모든 앨범 데이터를 저장하기 위한 리스트 생성 
-        album_names = []
-        album_id = []
-        total_tracks = []
-        release_date = []
+        album_list_count = len(data['items'])
+        album = []
+        extact_data = []
+        album_names, album_id, total_tracks, release_date = [], [], [], []
 
         # 앨범 리스트에 데이터 적재
-        for i in data['items']:
-            album_names.append(i['name'])
-            album_id.append(i['id'])
-            total_tracks.append(i['total_tracks'])
-            release_date.append(i['release_date'])
+        for i in range(album_list_count):
+            album_names.append(data['items'][i]['name'])
+            album_id.append(data['items'][i]['id'])
+            total_tracks.append(data['items'][i]['total_tracks'])
+            release_date.append(data['items'][i]['release_date'])
 
-        # 앨범 리스트에 데이터 적재
-        for i in range(len(album_names)):
-            print(f"album_name: {album_names[i]}  \n \
-            ,album_id: {album_id[i]} \n \
-            ,total_tracks: {total_tracks[i]} \n \
-            ,release_date: {release_date[i]}")
+            album = {
+                "album_name": album_names[i]
+                ,"album_id": album_id[i]
+                ,"total_tracks": total_tracks[i]
+                ,"release_date": release_date[i]
+            }
+            extact_data.append(album)
 
-        # album_name = data['items'][0]['name']
-        # album_id  = data['items'][0]['id']
-        # total_tracks  = data['items'][0]['total_tracks']
-        # release_date  = data['items'][0]['release_date']
+        print(extact_data)
         
-        # print(f"album_name: {album_names}  \n \
-        #     ,album_id: {album_id} \n \
-        #     ,total_tracks: {total_tracks} \n \
-        #     ,release_date: {release_date}")
+        # 변수들을 딕셔너리로 구성하여 반환
+        return extact_data
         
-artist_album(token, id)
-
-
+get_artist_album(token, id)
 
 # ** RETURN 예시 ** 
 # album_name: Proof  

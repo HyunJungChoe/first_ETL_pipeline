@@ -5,8 +5,9 @@
 /.DS_Store/
 /.idea/
 
-# files
+# keys
 /secret_key.py
-/get_acesstokenX.py
-/get_acesstokenXX.py
 /de-myproject-service-key.json
+
+# files
+/X_*.py
