@@ -76,8 +76,9 @@ def split_data(json_response):
         
         # 변수들을 딕셔너리로 구성하여 반환
         return extact_data
-        
-get_artist_album(token, id)
+
+if __name__ == "__main__":        
+    get_artist_album(token, id)
 
 # ** RETURN 예시 ** 
 # album_name: Proof  
