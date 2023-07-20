@@ -60,7 +60,7 @@ def split_data(json_response):
 
         # 검색 결과에서 아티스트의 ID 추출하기
         artist_list_count = len(data['artists']['items'])
-        extact_data = []
+        extract_data = []
         artist_name, artist_id, followers, genres, popularity = [], [] ,[] ,[], []
 
         # 아티스트 테이블에 데이터 적재
@@ -78,14 +78,15 @@ def split_data(json_response):
                 ,"genres": genres[i]
                 ,"popularity": popularity[i]
             }
-            extact_data.append(artist)
+            extract_data.append(artist)
 
         # 변수들을 딕셔너리로 구성하여 반환
-        return extact_data
+        return extract_data
     
     
 # 실행 
-# search_artist_id(token)
+if __name__ == "__main__":
+    search_artist_id(token)
 
 # ** RETURN 예시 ** 
 # {artist_id: 3Nrfpe0tUJi4K4DXYWgMUX  

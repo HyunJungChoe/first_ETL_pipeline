@@ -2,19 +2,16 @@ import requests
 import pprint
 from  get_acesstoken import get_token
 from secret_key import *
-from serach_top_track import *
 
 # Spotify API 액세스 토큰
 token = get_token(client_id, client_secret)
-id = '3Nrfpe0tUJi4K4DXYWgMUX' # 이후에  빅쿼리에서 아티스트 id 가져오기 
-
-track_name, tracks_id, tracks_popularity = get_top_track(token, id)
-unpack = ",".join(tracks_id)
 
 def get_audio_feature(token, track_name, tracks_id, tracks_popularity):   
         
     # Spotify API 검색 엔드포인트
     auth_url = "https://api.spotify.com/v1/audio-features"
+
+    unpack = ",".join(tracks_id)
 
     # 쿼리 매개변수
     params = {
@@ -32,7 +29,7 @@ def get_audio_feature(token, track_name, tracks_id, tracks_popularity):
         json_response = response.json()
 
         # pprint.pprint(json_response) 
-        return split_data(json_response)
+        return split_data(json_response, track_name, tracks_id, tracks_popularity)
 
                 
     elif response.status_code == 401:   
@@ -47,9 +44,18 @@ def get_audio_feature(token, track_name, tracks_id, tracks_popularity):
     else:
         print(f"{response.status_code} : 검색 요청에 실패하였습니다.")
 
+def isnone(data, true_case, false_case):
+    """
+    데이터가 None인 경우 true_case를 반환하고, 그렇지 않은 경우 false_case를 반환하는 함수입니다.
+    """
+    if data is None:
+        return true_case
+    else:
+        return false_case
+    
 
 # 데이터 보기 쉽게 변환 
-def split_data(json_response):
+def split_data(json_response, track_name, tracks_id, tracks_popularity):
         data = json_response
 
          # 모든 앨범 데이터를 저장하기 위한 리스트 생성 
@@ -97,11 +103,15 @@ def split_data(json_response):
             extact_data.append(feature)
 
         # 변수들을 딕셔너리로 구성하여 반환
-        print(extact_data)
+        # print(extact_data)
         return extact_data
 
-# 실행 
-get_audio_feature(token, track_name, tracks_id, tracks_popularity)
+# 테스트 실행 
+if __name__ == "__main__":
+    track_name = ['Take Two','FAKE LOVE'] 
+    tracks_id = ['5IAESfJjmOYu7cHyX557kz','4a9tbd947vo9K8Vti9JwcI'] 
+    tracks_popularity = [88, 81]
+    get_audio_feature(token, track_name, tracks_id, tracks_popularity)
 
 # acousticness, danceability, duration_ms, energy, instrumentalness, liveness, key, liveness, loudness, mode, speechiness, tempo, valence
 
